@@ -8,6 +8,7 @@ import com.financeapp.FinanceApp.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +75,13 @@ public class RecordService {
     public List<RecordResponse> getByType(RecordType type) {
         return recordRepository.findByType(type)
                 .stream().map(this::mapToResponse).toList();
+    }
+
+    public List<RecordResponse> getByDateRange(LocalDate start, LocalDate end) {
+        return recordRepository.findByDateBetween(start, end)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
     public List<RecordResponse> getByCategory(String category) {

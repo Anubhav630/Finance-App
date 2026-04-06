@@ -36,4 +36,27 @@ public class RecordController {
     public List<RecordResponse> getByCategory(@PathVariable String category) {
         return recordService.getByCategory(category);
     }
+
+    @GetMapping
+    public List<RecordResponse> getAllRecords() {
+        return recordService.getAllRecords();
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+        recordService.deleteRecord(id);
+        return "Record deleted successfully";
+    }
+
+    @GetMapping("/date")
+    public List<RecordResponse> getByDateRange(
+            @RequestParam String start,
+            @RequestParam String end) {
+
+        return recordService.getByDateRange(
+                java.time.LocalDate.parse(start),
+                java.time.LocalDate.parse(end)
+        );
+    }
+
 }

@@ -35,6 +35,18 @@ public class SecurityConfig {
                 .roles("ADMIN")
                 .build();
 
-        return new InMemoryUserDetailsManager(admin);
+        UserDetails analyst = org.springframework.security.core.userdetails.User
+                .withUsername("analyst")
+                .password("{noop}analyst123")
+                .roles("ANALYST")
+                .build();
+
+        UserDetails viewer = org.springframework.security.core.userdetails.User
+                .withUsername("viewer")
+                .password("{noop}viewer123")
+                .roles("VIEWER")
+                .build();
+
+        return new InMemoryUserDetailsManager(admin, analyst, viewer);
     }
 }
